@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+
+const admin = require("firebase-admin");
 router.post("/", async (req, res) => {
     console.log(req.body);
     const user ={
@@ -14,5 +16,4 @@ router.post("/", async (req, res) => {
     })
     res.json(userResponse);
 });
-
 module.exports = router;
