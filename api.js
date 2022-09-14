@@ -16,7 +16,7 @@ ref.once("value", function(snapshot) {
 });
 router.get("/get_image1", async (req, res) => {
 
-  await bucket.file("image1.bmp").download({destination: './image1.bmp'});
+  // await bucket.file("image1.bmp").download({destination: './image1.bmp'});
   // Send the file to the client
   res.send('./image1.bmp')
      
