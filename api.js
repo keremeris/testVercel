@@ -21,12 +21,22 @@ image_ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
 router.post("/img/",cors(), async (req, res) => {
+
   console.log(req.body);
   const imagePath = req.body.path;
   const tmp_link = req.body.link;
   image_ref.child(imagePath).set({
       link:tmp_link
   })
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
   try {
       res.json({
         status: 200,
