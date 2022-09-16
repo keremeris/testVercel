@@ -57,7 +57,7 @@ router.post("/img/", async (req, res) => {
 router.get("/img", async (req, res) => {
   const path = req.params.path;
 
-  var fileRef = bucket.file('image1.jpg');
+  var fileRef = bucket.file('image1.png');
   
   fileRef.exists().then(function(data) {
     console.log("File in database exists ");
