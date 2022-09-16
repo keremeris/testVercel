@@ -5,7 +5,7 @@ const api = require("./api.js");
 const cors = require('cors');
 
 app.use(cors({
-    origin: 'https://www.section.io'
+    origin: 'https://jlproject1.vercel.app/'
 }));
 
 app.use(express.json({ extended: false }));
