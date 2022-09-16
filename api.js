@@ -16,7 +16,7 @@ var ref = db.ref('AdditionalInfomation');
 ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
-router.post("/img", async (req, res) => {
+router.post("/img/", async (req, res) => {
   console.log(req.body);
   res.send(req.body);
   /*var fileRef = bucket.file('image1.bmp');
