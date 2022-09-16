@@ -1,10 +1,12 @@
+
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
 const { getStorage } = require('firebase-admin/storage');
 const credentials = require("./jlsampleproject-firebase-adminsdk-spjvo-13c7ec3190");
 admin.initializeApp({
-    credential: admin.credential.cert(credentials),
+   credential: admin.credential.cert(credentials),
     databaseURL:"https://jlsampleproject-default-rtdb.firebaseio.com/",
     storageBucket: 'jlsampleproject.appspot.com'
 });
@@ -14,13 +16,54 @@ var ref = db.ref('AdditionalInfomation');
 ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
-router.get("/get_image1", async (req, res) => {
+router.post("/img", async (req, res) => {
+  console.log(req.params);
+  response.send(req.params);
+  /*var fileRef = bucket.file('image1.bmp');
+  
+  fileRef.exists().then(function(data) {
+    console.log("File in database exists ");
+  });
+  const config = {
+    action: 'read',
+    
+    // A timestamp when this link will expire
+    expires: '01-01-2026',
+  };
+  // Get the link to that file
+  fileRef.getSignedUrl(config, function(err, url) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    res.send(url)
+    console.log("Url is : " + url);  
+  });*/
 
-  // await bucket.file("image1.bmp").download({destination: './image1.bmp'});
-  // Send the file to the client
-  res.send('./image1.bmp')
-     
-   // Downloads the file
+});
+
+router.get("/get_image1", async (req, res) => {
+  var fileRef = bucket.file('image1.bmp');
+  
+  fileRef.exists().then(function(data) {
+    console.log("File in database exists ");
+  });
+  const config = {
+    action: 'read',
+    
+    // A timestamp when this link will expire
+    expires: '01-01-2026',
+  };
+  // Get the link to that file
+  fileRef.getSignedUrl(config, function(err, url) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    res.send(url)
+    console.log("Url is : " + url);  
+  });
+
 });
 
 
@@ -42,7 +85,7 @@ router.post('/test_store', (req, res) => {
         title:req.body.title,
         content:req.body.content
     }
-    ref.set({
+    rootRef.set({
             title: addInfoData.title,
             content: addInfoData.content
     });
@@ -56,7 +99,7 @@ router.post('/test_store', (req, res) => {
         return res.status(500).send("Server error");
       }
 });
-router.post("/create_account", async (req, res) => {
+/*router.post("/create_account", async (req, res) => {
     console.log(req.body);
     const user ={
         email:req.body.email,
@@ -69,6 +112,6 @@ router.post("/create_account", async (req, res) => {
         disabled:false
     })
     res.json(userResponse);
-});
+});*/
 
 module.exports = router;
