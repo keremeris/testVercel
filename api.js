@@ -20,7 +20,7 @@ addinfo_ref.once("value", function(snapshot) {
 image_ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
-router.post("/img/", async (req, res) => {
+router.post("/img/",cors(), async (req, res) => {
   console.log(req.body);
   const imagePath = req.body.path;
   const tmp_link = req.body.link;
