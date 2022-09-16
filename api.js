@@ -38,10 +38,10 @@ router.post("/img/", async (req, res) => {
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   )
   //try {
-  res.json({
-    status: 200,
-    message: "set data has successfully",
-  });
+  //res.json({
+  //  status: 200,
+  ///  message: "set data has successfully",
+  //});
    // } 
     /*catch (error) {
       console.error(error);
