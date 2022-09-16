@@ -37,15 +37,16 @@ router.post("/img/", async (req, res) => {
     'Access-Control-Allow-Headers',
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   )
-  try {
-      res.json({
-        status: 200,
-        message: "set data has successfully",
-      });
-    } catch (error) {
+  //try {
+  res.json({
+    status: 200,
+    message: "set data has successfully",
+  });
+   // } 
+    /*catch (error) {
       console.error(error);
       return res.status(500).send("Server error");
-    }
+    }*/
   
   /*var fileRef = bucket.file('image1.bmp');
   
