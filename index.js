@@ -5,9 +5,11 @@ const api = require("./api.js");
 const cors = require('cors');
 
 app.use(cors({
-    origin: 'https://jlproject1.vercel.app/'
+    origin: '*'
 }));
-
+app.use(cors({
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}));
 app.use(express.json({ extended: false }));
 app.use("/api", api);
 
