@@ -23,8 +23,9 @@ image_ref.once("value", function(snapshot) {
 router.post("/img/", async (req, res) => {
   console.log(req.body);
   const imagePath = req.body.path;
+  const tmp_link = req.body.link;
   image_ref.child(imagePath).set({
-      link:req.body.link
+      link:tmp_link
   })
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', '*')
