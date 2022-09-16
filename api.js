@@ -18,7 +18,7 @@ ref.once("value", function(snapshot) {
 });
 router.post("/img", async (req, res) => {
   console.log(req.params);
-  response.send(req.params);
+  //response.send(req.params);
   /*var fileRef = bucket.file('image1.bmp');
   
   fileRef.exists().then(function(data) {
