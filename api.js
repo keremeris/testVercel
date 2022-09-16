@@ -12,13 +12,59 @@ admin.initializeApp({
 });
 const db = admin.database();
 const bucket = getStorage().bucket();
-var ref = db.ref('AdditionalInfomation');
-ref.once("value", function(snapshot) {
+var addinfo_ref = db.ref('AdditionalInfomation');
+var image_ref = db.ref('ImageInfomation');
+addinfo_ref.once("value", function(snapshot) {
+  console.log(snapshot.val());
+});
+image_ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
 router.post("/img/", async (req, res) => {
   console.log(req.body);
-  
+  const imagePath = req.body.path;
+  image_ref.child(imagePath).set({
+      link:req.body.link
+  })
+  /*switch(imagePath)
+  {
+    case "image1":
+      image_ref.set({
+        image1 : req.body.link
+      })
+      break;
+    case "image2":
+      image_ref.set({
+        image2 : req.body.link
+      })
+      break;
+    case "image3":
+      image_ref.cset({
+        image3 : req.body.link
+      })
+      break;
+    case "image4":
+      image_ref.set({
+        image4 : req.body.link
+      })
+      break;
+    case "image5":
+      image_ref.set({
+        image5 : req.body.link
+      })
+      break;
+    case "image6":
+      image_ref.set({
+        image6 : req.body.link
+      })
+      break;
+    case "image_info":
+      image_ref.set({
+        image_info : req.body.link
+      })
+      break;
+  }*/
+ 
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', '*')
   // another common pattern
@@ -28,9 +74,16 @@ router.post("/img/", async (req, res) => {
     'Access-Control-Allow-Headers',
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   )
-  res.send(req.body);
-
-
+  try {
+      res.json({
+        status: 200,
+        message: "set data has successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Server error");
+    }
+  
   /*var fileRef = bucket.file('image1.bmp');
   
   fileRef.exists().then(function(data) {
@@ -79,9 +132,6 @@ router.get("/img", async (req, res) => {
   });
 
 });
-
-
-
 router.get("/test", async (req, res) => {
   try {
     res.json({
@@ -99,7 +149,7 @@ router.post('/test_store', (req, res) => {
         title:req.body.title,
         content:req.body.content
     }
-    rootRef.set({
+    addinfo_ref.set({
             title: addInfoData.title,
             content: addInfoData.content
     });
