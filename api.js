@@ -18,7 +18,19 @@ ref.once("value", function(snapshot) {
 });
 router.post("/img/", async (req, res) => {
   console.log(req.body);
+  
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
   res.send(req.body);
+
+
   /*var fileRef = bucket.file('image1.bmp');
   
   fileRef.exists().then(function(data) {
