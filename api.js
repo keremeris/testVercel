@@ -20,6 +20,12 @@ addinfo_ref.once("value", function(snapshot) {
 image_ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
+
+router.get("/download_img", async (req, res) => {
+  const imagePath = req.body.path;
+  res.send(imagePath);
+ 
+});
 router.post("/img/", async (req, res) => {
 
   console.log(req.body);
@@ -37,6 +43,7 @@ router.post("/img/", async (req, res) => {
     'Access-Control-Allow-Headers',
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   )
+
   //try {
   //res.json({
   //  status: 200,
