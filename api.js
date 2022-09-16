@@ -26,45 +26,6 @@ router.post("/img/", async (req, res) => {
   image_ref.child(imagePath).set({
       link:req.body.link
   })
-  /*switch(imagePath)
-  {
-    case "image1":
-      image_ref.set({
-        image1 : req.body.link
-      })
-      break;
-    case "image2":
-      image_ref.set({
-        image2 : req.body.link
-      })
-      break;
-    case "image3":
-      image_ref.cset({
-        image3 : req.body.link
-      })
-      break;
-    case "image4":
-      image_ref.set({
-        image4 : req.body.link
-      })
-      break;
-    case "image5":
-      image_ref.set({
-        image5 : req.body.link
-      })
-      break;
-    case "image6":
-      image_ref.set({
-        image6 : req.body.link
-      })
-      break;
-    case "image_info":
-      image_ref.set({
-        image_info : req.body.link
-      })
-      break;
-  }*/
- 
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', '*')
   // another common pattern
