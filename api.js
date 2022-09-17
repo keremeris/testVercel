@@ -23,8 +23,8 @@ image_ref.once("value", function(snapshot) {
 });
 
 router.get("/download_img", async (req, res) => {
-  await bucket.file('image1').download({destination: './image1.png'});
- // res.download('./image1.png')
+  //await bucket.file('image1').download({destination: './image1.png'});
+ res.send('https://firebasestorage.googleapis.com/v0/b/jlsampleproject.appspot.com/o/image1?alt=media&token=c21361f6-8dcd-4ae1-83dc-338f0388c5b2')
  
 });
 router.post("/img/", async (req, res) => {
