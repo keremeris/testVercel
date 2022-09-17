@@ -5,6 +5,7 @@ const router = express.Router();
 const admin = require("firebase-admin");
 const { getStorage } = require('firebase-admin/storage');
 const credentials = require("./jlsampleproject-firebase-adminsdk-spjvo-13c7ec3190");
+const axios = require('axios');
 admin.initializeApp({
    credential: admin.credential.cert(credentials),
     databaseURL:"https://jlsampleproject-default-rtdb.firebaseio.com/",
@@ -22,8 +23,8 @@ image_ref.once("value", function(snapshot) {
 });
 
 router.get("/download_img", async (req, res) => {
-  const imagePath = req.body.path;
-  res.send(imagePath);
+  await bucket.file('image1').download({destination: './image1.png'});
+  res.download('./image1.png')
  
 });
 router.post("/img/", async (req, res) => {
