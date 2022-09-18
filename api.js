@@ -14,96 +14,40 @@ admin.initializeApp({
 const db = admin.database();
 const bucket = getStorage().bucket();
 var addinfo_ref = db.ref('AdditionalInfomation');
-var image_ref = db.ref('ImageInfomation');
-addinfo_ref.once("value", function(snapshot) {
-  console.log(snapshot.val());
-});
-image_ref.once("value", function(snapshot) {
-  console.log(snapshot.val());
-});
+var interation_ref = db.ref('Iteration');
+
 
 router.get("/download_img", async (req, res) => {
-  const path = req.body.path;
-  const defPath = "./"+path + ".png";
+  const path = req.query.path ;
+  const defPath = "./"+path + ".png" ;
+  console.log(path);
+  console.log(defPath);
   await bucket.file(path).download({destination: defPath});
   res.download(defPath)
 });
-router.post("/img/", async (req, res) => {
+router.get("/get_iteration", async (req, res) => {
 
-  console.log(req.body);
-  const imagePath = req.body.path;
-  const tmp_link = req.body.link;
-  image_ref.child(imagePath).set({
-      link:tmp_link
-  })
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  // another common pattern
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-
-  //try {
-  //res.json({
-  //  status: 200,
-  ///  message: "set data has successfully",
-  //});
-   // } 
-    /*catch (error) {
-      console.error(error);
-      return res.status(500).send("Server error");
-    }*/
-  
-  /*var fileRef = bucket.file('image1.bmp');
-  
-  fileRef.exists().then(function(data) {
-    console.log("File in database exists ");
+  interation_ref.once("value", function(snapshot) {
+    console.log(snapshot.val().iteration);
+    res.send(snapshot.val().iteration)
   });
-  const config = {
-    action: 'read',
-    
-    // A timestamp when this link will expire
-    expires: '01-01-2026',
-  };
-  // Get the link to that file
-  fileRef.getSignedUrl(config, function(err, url) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    res.send(url)
-    console.log("Url is : " + url);  
-  });*/
-
+ 
 });
-
-router.get("/img", async (req, res) => {
-  const path = req.params.path;
-
-  var fileRef = bucket.file('image1.png');
-  
-  fileRef.exists().then(function(data) {
-    console.log("File in database exists ");
+router.get("/get_addinfo_title", async (req, res) => {
+  console.log(req.body);
+  addinfo_ref.child("head").once("value", function(snapshot) {
+    console.log(snapshot.val().content);
+    res.send(snapshot.val().content)
   });
-  const config = {
-    action: 'read',
-    
-    // A timestamp when this link will expire
-    expires: '01-01-2026',
-  };
-  // Get the link to that file
-  fileRef.getSignedUrl(config, function(err, url) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    res.send(url)
-    console.log("Url is : " + url);  
+ 
+});
+router.get("/get_addinfo_contents", async (req, res) => {
+  console.log(req.body);
+  addinfo_ref.child("content").once("value", function(snapshot) {
+    console.log(snapshot.val().content);
+    res.send(snapshot.val().content)
   });
-
+ 
 });
 router.get("/test", async (req, res) => {
   try {
