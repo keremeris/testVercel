@@ -23,8 +23,10 @@ image_ref.once("value", function(snapshot) {
 });
 
 router.get("/download_img", async (req, res) => {
-  const ad = await bucket.file('image1').download({destination: './image1.png'});
-  res.download('./image1.png')
+  const path = req.body.path;
+  const defPath = "./"+path + ".png";
+  await bucket.file(path).download({destination: defPath});
+  res.download(defPath)
 });
 router.post("/img/", async (req, res) => {
 
